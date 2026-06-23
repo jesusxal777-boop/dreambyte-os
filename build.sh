@@ -157,6 +157,19 @@ echo "[+] 7/7 Compilando la ISO híbrida final con Xorriso..."
 cp /usr/lib/grub/i386-pc/*.mod "$ISO_DIR/boot/grub/" 2>/dev/null || true
 cp /usr/lib/grub/i386-pc/boot.img "$ISO_DIR/boot/grub/" 2>/dev/null || true
 
+# Generar grub.cfg básico para arrancar el sistema live
+cat > "$ISO_DIR/boot/grub/grub.cfg" <<'GRUBCFG'
+set default=0
+set timeout=5
+
+menuentry "DreamByteOS (Live)" {
+    linux /boot/vmlinuz boot=live quiet splash
+    initrd /boot/initrd.img
+}
+GRUBCFG
+
+chmod 644 "$ISO_DIR/boot/grub/grub.cfg"
+
 grub-mkstandalone \
     --format=i386-pc \
     --output="$ISO_DIR/boot/grub/core.img" \
