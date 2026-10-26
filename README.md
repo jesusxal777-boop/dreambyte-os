@@ -1,35 +1,38 @@
-# DreamByte OS
+# DreamByte OS 1.0
 
-**DreamByte OS** — Sistema operativo ultra ligero basado en Alpine Linux (aarch64) con estética Liquid Glass, optimizado para UTM en iPad 9 (A13).
+**DreamByte OS** — Sistema operativo ultra ligero basado en **Alpine Linux aarch64** con estética **Liquid Glass**, optimizado para correr en **UTM** en iPad 9 (chip A13).
 
 ## Características
-- Base Alpine Linux virt aarch64 (muy ligero)
+- Base Alpine Linux virt aarch64 (mínimo peso)
 - Branding completo DreamByte Studios
-- Assets Liquid Glass (papelera, ventanas, logo nube, wordmark, mascota robot)
-- Tema glass cyan/azul
+- Soporte para assets Liquid Glass (papelera, ventanas glass, logo nube, wordmark, mascota robot)
+- Listo para UTM en iPad
 
-## Cómo construir la ISO
+## Cómo obtener la ISO
 
-### Opción 1: GitHub Actions (recomendado)
-1. Ve a la pestaña **Actions**
-2. Ejecuta el workflow **Compilar DreamByte OS ISO**
-3. Descarga el artifact `DreamByteOS-Installer`
+### Método recomendado (GitHub Actions)
+1. Ve a la pestaña **Actions** de este repositorio
+2. Selecciona el workflow **Compilar DreamByte OS ISO**
+3. Haz clic en **Run workflow**
+4. Cuando termine, descarga el artifact **DreamByte-OS-1.0-aarch64**
 
-### Opción 2: Local
+### Método local
 ```bash
-sudo ./build.sh
+git clone https://github.com/jesusxal777-boop/DreamByte-OS.git
+cd DreamByte-OS
+sudo ./build-alpine.sh
 ```
 
-## Assets
-Los assets (papelera limpia, logos, plantilla de ventanas) se incluyen en el kit. Sube la carpeta `assets/` con:
-- trash_icon.png
-- company_logo_cloud.png
-- dreambyte_os_logo.png
-- dreambyte_studios_wordmark.png
-- mascot_robot.png
-- window_template.png
+## Assets Liquid Glass
+Coloca tus imágenes en la carpeta `assets/`:
+- `trash_icon.png` (papelera limpia)
+- `company_logo_cloud.png` (logo de la empresa)
+- `dreambyte_os_logo.png`
+- `dreambyte_studios_wordmark.png`
+- `mascot_robot.png`
+- `window_template.png`
 
-## Estado actual
-El build.sh actual genera una ISO Debian amd64 live. Se está migrando a Alpine aarch64 para iPad UTM.
+El script las incluye automáticamente en el sistema.
 
-Repositorio: https://github.com/jesusxal777-boop/DreamByte-OS
+## Créditos
+DreamByte Studios • Liquid Glass design inspired by macOS Golden Gate

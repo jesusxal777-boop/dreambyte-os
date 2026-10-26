@@ -6,32 +6,45 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-alpine:
     runs-on: ubuntu-latest
+    name: Build Alpine aarch64 ISO
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Install dependencies
+    - name: Install tools
       run: |
-        sudo apt-get update
-        sudo apt-get install -y curl 7zip xorriso squashfs-tools
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq curl p7zip-full xorriso genisoimage
 
-    - name: Make scripts executable
-      run: |
-        chmod +x build.sh build-alpine.sh || true
+    - name: Make executable
+      run: chmod +x build-alpine.sh build.sh || true
 
-    - name: Build (current Debian path)
-      run: |
-        sudo ./build.sh || echo "Debian build finished or failed gracefully"
+    - name: Build DreamByte Alpine aarch64 ISO
+      run: sudo ./build-alpine.sh
 
-    - name: Upload ISO artifact
+    - name: Upload ISO
       uses: actions/upload-artifact@v4
       with:
-        name: DreamByteOS-Installer
+        name: DreamByte-OS-1.0-aarch64
         path: |
-          DreamByteOS.iso
+          DreamByte-OS-1.0-aarch64.iso
           *.iso
         if-no-files-found: warn
-        retention-days: 7
+        retention-days: 14
+
+  build-debian-legacy:
+    runs-on: ubuntu-latest
+    name: Build Debian legacy (optional)
+    if: false   # desactivado por defecto
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: chmod +x build.sh && sudo ./build.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: DreamByteOS-Debian
+        path: DreamByteOS.iso
+        if-no-files-found: warn
